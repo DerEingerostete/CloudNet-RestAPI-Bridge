@@ -22,4 +22,9 @@ public class RestAPIBridge {
         return 0;
     }
 
+    public static int getOnlineCount() {
+        //TODO: Online Count
+        return 0;
+    }
+
 }
