@@ -1,5 +1,6 @@
 package api.endsurve.restapi.http;
 
+import api.endsurve.restapi.http.response.APIResponse;
 import api.endsurve.restapi.http.response.HTTPResponse;
 import api.endsurve.restapi.http.response.StandardHTTPResponse;
 import org.apache.commons.io.IOUtils;
@@ -22,6 +23,7 @@ public class HTTPConnection {
     private final JSONObject object;
     private final HTTPResponse response;
     private final Map<String, Object> map;
+    private final APIResponse apiResponse;
 
     public HTTPConnection(URL url, HTTPRequest request) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -33,7 +35,7 @@ public class HTTPConnection {
         connection.setRequestMethod(method);
 
         Map<String, String> headers = request.getHeaders();
-        headers.forEach((key, value) -> connection.addRequestProperty(key, value));
+        headers.forEach(connection::addRequestProperty);
 
         connection.connect();
 
@@ -48,6 +50,7 @@ public class HTTPConnection {
         String jsonString = writer.toString();
         object = new JSONObject(jsonString);
         map = object.toMap();
+        apiResponse = new APIResponse(object, message, code);
 
         connection.disconnect();
     }
@@ -64,6 +67,10 @@ public class HTTPConnection {
 
     public HTTPResponse getResponse() {
         return response;
+    }
+
+    public APIResponse getApiResponse() {
+        return apiResponse;
     }
 
 }

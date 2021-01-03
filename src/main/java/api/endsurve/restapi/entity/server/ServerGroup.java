@@ -8,7 +8,7 @@ import java.util.Map;
  * @author DerEingerostete
  * @since 1.0
  */
-public class ServerGroups {
+public class ServerGroup {
     private final String name;
     private final ServerGroupMode mode;
 
@@ -24,7 +24,7 @@ public class ServerGroups {
 
     private final Map<String, Object> settings;
 
-    public ServerGroups(JSONObject object) {
+    public ServerGroup(JSONObject object) {
         name = object.optString("name");
         mode = object.optEnum(ServerGroupMode.class, "mode");
         memory = object.optInt("memory");

@@ -1,10 +1,12 @@
 package api.endsurve.restapi.auth;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author DerEingerostete
  * @since 1.0
  */
-public class StandardBridgeAuth {
+public class StandardBridgeAuth implements BridgeAuth {
     private final String user;
     private final String token;
 
@@ -13,11 +15,14 @@ public class StandardBridgeAuth {
         this.token = token;
     }
 
-    public String getUser() {
+    @Override
+    public @NotNull String getUser() {
         return user;
     }
 
-    public String getToken() {
+    @Override
+    public @NotNull String getToken() {
         return token;
     }
+
 }

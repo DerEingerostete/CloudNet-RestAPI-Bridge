@@ -8,12 +8,13 @@ import org.json.JSONObject;
  * @author DerEingerostete
  * @since 1.0
  */
-public class APIResponse {
+public class APIResponse extends StandardHTTPResponse {
     private final boolean success;
     private final String[] reason;
     private final JSONObject response;
 
-    public APIResponse(JSONObject object) {
+    public APIResponse(JSONObject object, String message, int code) {
+        super(message, code);
         success = object.optBoolean("success");
 
         JSONArray reasonArray = object.optJSONArray("reason");
