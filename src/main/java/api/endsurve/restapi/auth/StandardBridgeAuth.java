@@ -19,7 +19,7 @@ public class StandardBridgeAuth implements BridgeAuth {
 
     @Override
     public @NotNull String getURL() {
-        return null;
+        return url;
     }
 
     @Override
