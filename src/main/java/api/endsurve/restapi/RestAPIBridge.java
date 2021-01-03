@@ -18,8 +18,8 @@ import java.util.List;
 public class RestAPIBridge {
     private static StandardBridgeAuth auth;
 
-    public static void login(String user, String token) {
-        auth = new StandardBridgeAuth(user, token);
+    public static void login(String user, String token, String url) {
+        auth = new StandardBridgeAuth(user, token, url);
     }
 
     public static void logout() {

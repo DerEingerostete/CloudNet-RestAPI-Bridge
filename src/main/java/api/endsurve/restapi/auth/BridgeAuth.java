@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 public interface BridgeAuth {
 
     @NotNull
+    String getURL();
+
+    @NotNull
     String getUser();
 
     @NotNull

@@ -14,7 +14,7 @@ public class TemplateHTTPRequests {
 
     public static APIResponse utilAPI(BridgeAuth auth) throws Exception {
         Validate.notNull(auth, "No authentication is given");
-        URL url = new URL("http://193.23.126.71:1420/cloudnet/api/v1/util");
+        URL url = new URL(auth.getURL() + "/cloudnet/api/v1/util");
         RequestMethod method = RequestMethod.GET;
         HTTPRequestBuilder builder = new HTTPRequestBuilder(method);
         builder.withAuth(auth);
