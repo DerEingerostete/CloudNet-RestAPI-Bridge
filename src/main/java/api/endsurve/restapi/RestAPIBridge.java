@@ -31,6 +31,16 @@ public class RestAPIBridge {
         auth = null;
     }
 
+    public static boolean startServer(String groupName) throws Exception {
+        APIResponse response = TemplateHTTPRequests.startServerAPI(auth, groupName);
+        return response.wasSuccessfully();
+    }
+
+    public static boolean startProxy(String groupName) throws Exception {
+        APIResponse response = TemplateHTTPRequests.startProxyAPI(auth, groupName);
+        return response.wasSuccessfully();
+    }
+
     public static List<Proxy> getProxys() throws Exception {
         ArrayList<Proxy> proxies = new ArrayList<>();
         APIResponse response = TemplateHTTPRequests.serverInfosAPI(auth);
