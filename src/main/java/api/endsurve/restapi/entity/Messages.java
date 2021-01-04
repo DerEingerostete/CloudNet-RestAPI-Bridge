@@ -1,16 +1,18 @@
 package api.endsurve.restapi.entity;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author DerEingerostete
  * @since 1.0
  */
-public class Message implements DataCatcher {
+public class Messages implements DataCatcher {
     private final String name;
     private final File file;
     private final String prefix;
@@ -24,9 +26,9 @@ public class Message implements DataCatcher {
     private final String notifyMessageServerRemove;
     private final String hubAlready;
     private final String serverKickProxyDisallow;
-    private final String[] allValues;
+    private final Map<String, Object> allValues;
 
-    public Message(JSONObject object) {
+    public Messages(JSONObject object) {
         name = object.optString("name");
 
         String fileString = object.optString("file");
@@ -46,9 +48,7 @@ public class Message implements DataCatcher {
         hubAlready = catcherObject.optString("hub-already");
         serverKickProxyDisallow = catcherObject.optString("server-kick-proxy-disallow");
 
-        ArrayList<String> list = new ArrayList<>();
-        catcherObject.keySet().forEach(key -> list.add(catcherObject.optString(key)));
-        allValues = list.toArray(new String[0]);
+        allValues = new HashMap<>(object.toMap());
     }
 
     public String getName() {
@@ -59,6 +59,11 @@ public class Message implements DataCatcher {
     @Override
     public File getFile() {
         return file;
+    }
+
+    @Override
+    public @NotNull Map<String, Object> asMap() {
+        return allValues;
     }
 
     public String getPrefix() {
@@ -103,10 +108,6 @@ public class Message implements DataCatcher {
 
     public String getServerKickProxyDisallow() {
         return serverKickProxyDisallow;
-    }
-
-    public String[] getAllValues() {
-        return allValues;
     }
 
 }

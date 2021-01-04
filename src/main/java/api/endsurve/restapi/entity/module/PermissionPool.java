@@ -1,6 +1,7 @@
 package api.endsurve.restapi.entity.module;
 
 import api.endsurve.restapi.entity.DataCatcher;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
@@ -18,6 +19,7 @@ public class PermissionPool implements DataCatcher {
     private PermissionGroup defaultGroup;
     private final boolean notifyService;
     private final File file;
+    private final Map<String, Object> allValues;
 
     public PermissionPool(JSONObject object, JSONObject dataCatcherObject) {
         available = object.optBoolean("available");
@@ -40,6 +42,8 @@ public class PermissionPool implements DataCatcher {
             if (group.isDefaultGroup())
                 defaultGroup = group;
         });
+
+        allValues = new HashMap<>(object.toMap());
     }
 
     public boolean isAvailable() {
@@ -59,10 +63,14 @@ public class PermissionPool implements DataCatcher {
         return defaultGroup;
     }
 
+    @Override
+    public @NotNull Map<String, Object> asMap() {
+        return allValues;
+    }
+
     @Nullable
     @Override
     public File getFile() {
         return file;
     }
-
 }

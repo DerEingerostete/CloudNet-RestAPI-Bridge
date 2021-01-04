@@ -15,13 +15,13 @@ import java.net.URL;
  */
 public class TemplateHTTPRequests {
 
-    public static APIResponse utilAPI(BridgeAuth auth) throws Exception {
+    public static APIResponse utilAPI(BridgeAuth auth, String message) throws Exception {
         Validate.notNull(auth, "No authentication is given");
         URL url = new URL(auth.getURL() + "/cloudnet/api/v1/util");
         RequestMethod method = RequestMethod.GET;
         HTTPRequestBuilder builder = new HTTPRequestBuilder(method);
         builder.withAuth(auth);
-        builder.withHeader("-Xmessage", "cloudnetwork");
+        builder.withHeader("-Xmessage", message);
         HTTPRequest request = builder.build();
         HTTPConnection connection = new HTTPConnection(url, request);
         try {
@@ -35,6 +35,14 @@ public class TemplateHTTPRequests {
             throw exception;
         }
         return connection.getApiResponse();
+    }
+
+    public static APIResponse serverInfosAPI(BridgeAuth auth) throws Exception {
+        return utilAPI(auth, "serverInfos");
+    }
+
+    public static APIResponse cloudNetworkAPI(BridgeAuth auth) throws Exception {
+        return utilAPI(auth, "cloudnetwork");
     }
 
 }

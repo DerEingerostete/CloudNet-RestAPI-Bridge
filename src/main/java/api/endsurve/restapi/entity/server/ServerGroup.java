@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class ServerGroup {
     private final String name;
-    private final ServerGroupMode mode;
+    private final ServerState mode;
 
     private final int joinPower;
     private final int memory;
@@ -26,7 +26,7 @@ public class ServerGroup {
 
     public ServerGroup(JSONObject object) {
         name = object.optString("name");
-        mode = object.optEnum(ServerGroupMode.class, "mode");
+        mode = object.optEnum(ServerState.class, "mode");
         memory = object.optInt("memory");
         joinPower = object.optInt("joinPower");
         percentForNewServerAutomatically = object.optInt("percentForNewServerAutomatically");
@@ -44,7 +44,7 @@ public class ServerGroup {
         return name;
     }
 
-    public ServerGroupMode getMode() {
+    public ServerState getMode() {
         return mode;
     }
 

@@ -1,5 +1,6 @@
 package api.endsurve.restapi.entity.proxy;
 
+import api.endsurve.restapi.entity.Template;
 import api.endsurve.restapi.json.JSONArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +16,7 @@ public class ProxyGroup {
     private final String[] wrappers;
     private final String proxyVersion;
 
-    private final ProxyTemplate template;
+    private final Template template;
     private final ProxyConfig config;
 
     private final int startPort;
@@ -34,7 +35,7 @@ public class ProxyGroup {
         proxyVersion = object.optString("proxyVersion");
 
         JSONObject templateObject = object.optJSONObject("template");
-        template = new ProxyTemplate(templateObject);
+        template = new Template(templateObject);
 
         JSONObject configObject = object.optJSONObject("proxyConfig");
         config = new ProxyConfig(configObject);
@@ -60,7 +61,7 @@ public class ProxyGroup {
         return proxyVersion;
     }
 
-    public ProxyTemplate getTemplate() {
+    public Template getTemplate() {
         return template;
     }
 

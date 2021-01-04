@@ -1,4 +1,4 @@
-package api.endsurve.restapi.entity.proxy;
+package api.endsurve.restapi.entity;
 
 import api.endsurve.restapi.json.JSONArrayUtils;
 import org.jetbrains.annotations.Nullable;
@@ -12,14 +12,14 @@ import java.net.URL;
  * @author DerEingerostete
  * @since 1.0
  */
-public class ProxyTemplate {
+public class Template {
     private final String name;
     private final String backend;
     private URL url;
     private final String[] processPreParameters;
     private final String[] installablePlugins;
 
-    public ProxyTemplate(JSONObject object) {
+    public Template(JSONObject object) {
         name = object.optString("name");
         backend = object.optString("backend");
 
