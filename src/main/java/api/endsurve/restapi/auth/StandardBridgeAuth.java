@@ -14,7 +14,11 @@ public class StandardBridgeAuth implements BridgeAuth {
     public StandardBridgeAuth(String user, String token, String url) {
         this.user = user;
         this.token = token;
-        this.url = url;
+
+        String finalUrl = url;
+        if (finalUrl.endsWith("/"))
+            finalUrl = finalUrl.substring(0, finalUrl.length() - 1);
+        this.url = finalUrl;
     }
 
     @Override
