@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @author DerEingerostete
@@ -28,9 +27,6 @@ public class ProxyConfig {
     private final AutoSlot autoSlot;
     private final Tablist tablist;
     private final DynamicFallback fallback;
-    private final ProxyGroupMode mode;
-
-    private final Map<String, Object> settings;
 
     public ProxyConfig(JSONObject object) {
         maintenanceProtocol = object.optString("maintenaceProtocol");
@@ -64,12 +60,8 @@ public class ProxyConfig {
         JSONObject tablistObject = object.optJSONObject("tabList");
         tablist = new Tablist(tablistObject);
 
-        mode = object.optEnum(ProxyGroupMode.class, "proxyGroupMode");
-
         JSONObject fallbackJSON = object.optJSONObject("dynamicFallback");
         fallback = new DynamicFallback(fallbackJSON);
-
-        settings = object.optJSONObject("settings").toMap();
     }
 
     public String getMaintenanceProtocol() {
@@ -88,7 +80,7 @@ public class ProxyConfig {
         return maintenance;
     }
 
-    public boolean isCustomPayloadFixer() {
+    public boolean enabledCustomPayloadFixer() {
         return customPayloadFixer;
     }
 
@@ -118,14 +110,6 @@ public class ProxyConfig {
 
     public DynamicFallback getFallback() {
         return fallback;
-    }
-
-    public ProxyGroupMode getMode() {
-        return mode;
-    }
-
-    public Map<String, Object> getSettings() {
-        return settings;
     }
 
 }

@@ -31,11 +31,13 @@ public class ServerGroup {
         joinPower = object.optInt("joinPower");
         percentForNewServerAutomatically = object.optInt("percentForNewServerAutomatically");
         maintenance = object.optBoolean("maintenance");
-        notifyPlayerUpdatesForOffline = object.optBoolean("notifyPlayerUpdatesFromNoCurrentPlayer");
-        notifyProxyUpdates = object.optBoolean("notifyProxyUpdates");
-        notifyServerUpdates = object.optBoolean("notifyServerUpdates");
-        autoSavingForWorlds = object.optBoolean("disableAutoSavingForWorlds");
         settings = object.optJSONObject("settings").toMap();
+
+        JSONObject configObject = object.optJSONObject("advancedServerConfig");
+        notifyPlayerUpdatesForOffline = configObject.optBoolean("notifyPlayerUpdatesFromNoCurrentPlayer");
+        notifyProxyUpdates = configObject.optBoolean("notifyProxyUpdates");
+        notifyServerUpdates = configObject.optBoolean("notifyServerUpdates");
+        autoSavingForWorlds = !configObject.optBoolean("disableAutoSavingForWorlds");
     }
 
     public String getName() {

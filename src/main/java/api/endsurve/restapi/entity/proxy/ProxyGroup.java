@@ -4,6 +4,8 @@ import api.endsurve.restapi.json.JSONArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 /**
  * @author DerEingerostete
  * @since 1.0
@@ -16,9 +18,12 @@ public class ProxyGroup {
     private final ProxyTemplate template;
     private final ProxyConfig config;
 
-    private final int startupPort;
+    private final int startPort;
     private final int startup;
     private final int memory;
+
+    private final ProxyGroupMode mode;
+    private final Map<String, Object> settings;
 
     public ProxyGroup(JSONObject object) {
         name = object.optString("name");
@@ -32,11 +37,15 @@ public class ProxyGroup {
         template = new ProxyTemplate(templateObject);
 
         JSONObject configObject = object.optJSONObject("proxyConfig");
-        config = new ProxyConfig(templateObject);
+        config = new ProxyConfig(configObject);
 
-        startupPort = object.optInt("startupPort");
+        startPort = object.optInt("startPort");
         startup = object.optInt("startup");
         memory = object.optInt("memory");
+
+        mode = object.optEnum(ProxyGroupMode.class, "proxyGroupMode");
+
+        settings = object.optJSONObject("settings").toMap();
     }
 
     public String getName() {
@@ -59,8 +68,8 @@ public class ProxyGroup {
         return config;
     }
 
-    public int getStartupPort() {
-        return startupPort;
+    public int getStartPort() {
+        return startPort;
     }
 
     public int getStartup() {
@@ -69,6 +78,14 @@ public class ProxyGroup {
 
     public int getMemory() {
         return memory;
+    }
+
+    public Map<String, Object> getSettings() {
+        return settings;
+    }
+
+    public ProxyGroupMode getMode() {
+        return mode;
     }
 
 }

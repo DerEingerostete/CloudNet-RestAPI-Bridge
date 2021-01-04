@@ -2,10 +2,12 @@ package api.endsurve.restapi;
 
 import api.endsurve.restapi.auth.StandardBridgeAuth;
 import api.endsurve.restapi.entity.Wrapper;
+import api.endsurve.restapi.entity.module.Module;
 import api.endsurve.restapi.entity.proxy.ProxyGroup;
 import api.endsurve.restapi.entity.server.ServerGroup;
 import api.endsurve.restapi.http.TemplateHTTPRequests;
 import api.endsurve.restapi.http.response.APIResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -56,20 +58,26 @@ public class RestAPIBridge {
         ArrayList<Wrapper> wrappers = new ArrayList<>();
         APIResponse response = TemplateHTTPRequests.utilAPI(auth);
         JSONObject object = response.getResponse();
-        JSONObject wrappersObject = object.optJSONObject("wrappers");
-        wrappersObject.keySet().forEach(key -> {
-            JSONObject wrapperObject = wrappersObject.optJSONObject(key);
+        JSONArray wrappersObject = object.optJSONArray("wrappers");
+        for (int i = 0; i < wrappersObject.length(); i++) {
+            JSONObject wrapperObject = wrappersObject.optJSONObject(i);
             Wrapper wrapper = new Wrapper(wrapperObject);
             wrappers.add(wrapper);
-        });
+        }
         return wrappers;
     }
 
-    public static int getModulesWebPort() throws Exception {
+    public static Module getModule() throws Exception {
         APIResponse response = TemplateHTTPRequests.utilAPI(auth);
         JSONObject object = response.getResponse();
         JSONObject modulesObject = object.optJSONObject("modules");
-        return modulesObject.optInt("webPort");
+        return new Module(modulesObject);
+    }
+
+    public static int getWebPort() throws Exception {
+        APIResponse response = TemplateHTTPRequests.utilAPI(auth);
+        JSONObject object = response.getResponse();
+        return object.optInt("webPort");
     }
 
     public static int getOnlineCount() throws Exception {

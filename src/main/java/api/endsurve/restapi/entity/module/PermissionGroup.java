@@ -47,7 +47,7 @@ public class PermissionGroup {
         ArrayList<Permission> permsList = new ArrayList<>();
         JSONObject permsObject = object.optJSONObject("permissions");
         permsObject.keySet().forEach(key -> {
-            boolean allowed = permsObject.optBoolean("permissions");
+            boolean allowed = permsObject.optBoolean(key);
             Permission permission = new Permission(key, allowed);
             permsList.add(permission);
         });
@@ -71,6 +71,54 @@ public class PermissionGroup {
 
         JSONArray groupsArray = object.optJSONArray("implementGroups");
         implementGroups = JSONArrayUtils.toStringArray(groupsArray);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public int getJoinPower() {
+        return joinPower;
+    }
+
+    public boolean isDefaultGroup() {
+        return defaultGroup;
+    }
+
+    public Permission[] getPermissions() {
+        return permissions;
+    }
+
+    public Map<String, String[]> getServerGroupPermissions() {
+        return serverGroupPermissions;
+    }
+
+    public Option[] getOptions() {
+        return options;
+    }
+
+    public String[] getImplementGroups() {
+        return implementGroups;
     }
 
 }

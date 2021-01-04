@@ -16,7 +16,7 @@ public class Module {
 
         JSONObject catcherObject = object.optJSONObject("dataCatcher");
         JSONObject poolObject = catcherObject.optJSONObject("permissionPool");
-        permissionPool = new PermissionPool(poolObject);
+        permissionPool = new PermissionPool(poolObject, catcherObject);
     }
 
     @Nullable

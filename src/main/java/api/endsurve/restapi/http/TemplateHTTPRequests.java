@@ -1,9 +1,12 @@
 package api.endsurve.restapi.http;
 
 import api.endsurve.restapi.auth.BridgeAuth;
+import api.endsurve.restapi.http.exception.AuthenticationException;
 import api.endsurve.restapi.http.response.APIResponse;
+import api.endsurve.restapi.http.response.HTTPResponse;
 import api.endsurve.restapi.validation.Validate;
 
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -21,6 +24,16 @@ public class TemplateHTTPRequests {
         builder.withHeader("-Xmessage", "cloudnetwork");
         HTTPRequest request = builder.build();
         HTTPConnection connection = new HTTPConnection(url, request);
+        try {
+            connection.load();
+        } catch (IOException exception) {
+            if (connection.getResponse() != null) {
+                HTTPResponse response = connection.getResponse();
+                if (response.getCode() == 401)
+                    throw new AuthenticationException("Authentication failed, check your login", exception);
+            }
+            throw exception;
+        }
         return connection.getApiResponse();
     }
 

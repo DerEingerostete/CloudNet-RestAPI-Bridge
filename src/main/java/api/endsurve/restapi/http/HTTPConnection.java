@@ -20,12 +20,20 @@ import java.util.Map;
  * @since 1.0
  */
 public class HTTPConnection {
-    private final JSONObject object;
-    private final HTTPResponse response;
-    private final Map<String, Object> map;
-    private final APIResponse apiResponse;
+    private JSONObject object;
+    private HTTPResponse response;
+    private Map<String, Object> map;
+    private APIResponse apiResponse;
 
-    public HTTPConnection(URL url, HTTPRequest request) throws Exception {
+    private final URL url;
+    private final HTTPRequest request;
+
+    public HTTPConnection(URL url, HTTPRequest request) {
+        this.url = url;
+        this.request = request;
+    }
+
+    public void load() throws Exception {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(false);
         connection.setDoInput(true);

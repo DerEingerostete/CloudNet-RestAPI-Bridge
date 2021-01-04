@@ -15,13 +15,13 @@ import java.util.Map;
 public class PermissionPool implements DataCatcher {
     private final boolean available;
     private final Map<String, PermissionGroup> groups;
-    private final PermissionGroup defaultGroup;
+    private PermissionGroup defaultGroup;
     private final boolean notifyService;
     private final File file;
 
-    public PermissionPool(JSONObject object) {
+    public PermissionPool(JSONObject object, JSONObject dataCatcherObject) {
         available = object.optBoolean("available");
-        notifyService = object.optBoolean("notifyService");
+        notifyService = dataCatcherObject.optBoolean("notifyService");
 
         String fileString = object.optString("file");
         if (fileString == null) file = null;
@@ -30,14 +30,15 @@ public class PermissionPool implements DataCatcher {
         groups = new HashMap<>();
         JSONObject groupsObject = object.optJSONObject("groups");
 
-        JSONObject defaultGroupObject = groupsObject.optJSONObject("default");
-        if (defaultGroupObject == null) defaultGroup = null;
-        else defaultGroup = new PermissionGroup(defaultGroupObject);
-
         groupsObject.keySet().forEach(key -> {
             JSONObject groupObject = groupsObject.optJSONObject(key);
             PermissionGroup group = new PermissionGroup(groupObject);
             groups.put(key, group);
+        });
+
+        groups.forEach((name, group) -> {
+            if (group.isDefaultGroup())
+                defaultGroup = group;
         });
     }
 
