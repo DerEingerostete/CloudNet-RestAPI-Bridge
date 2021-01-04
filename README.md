@@ -1,4 +1,4 @@
-# CloudNet-RestAPI-Bridge
+# CloudNet RestAPI Bridge
 Die CloudNet RestAPI Bridge ist eine Schnittstelle zwischen Java und der RestAPI von CloudNet v2.
 
 ## Zusammenfassung
